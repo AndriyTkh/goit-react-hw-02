@@ -1,0 +1,11 @@
+.optionBox {
+  display: flex;
+  gap: 4px;
+}
+
+button {
+  height: 28px;
+
+  border-radius: 2px;
+  border: 1px solid grey;
+}
