@@ -19,10 +19,6 @@ export default function App() {
     }
   });
 
-  const [totalFeedback, setTotalFeedback] = useState(() => {
-    return feedback.good + feedback.neutral + feedback.bad;
-  });
-
   useEffect(() => {
     localStorage.setItem("feedback", JSON.stringify(feedback));
   }, [feedback]);
@@ -32,7 +28,6 @@ export default function App() {
       ...feedback,
       [feedbackType]: feedback[feedbackType] + 1,
     });
-    setTotalFeedback(totalFeedback + 1);
   };
 
   const resetFeedback = () => {
@@ -41,7 +36,6 @@ export default function App() {
       neutral: 0,
       bad: 0,
     });
-    setTotalFeedback(0);
   };
 
   return (
@@ -51,11 +45,14 @@ export default function App() {
       <Options
         update={updateFeedback}
         reset={resetFeedback}
-        total={totalFeedback}
+        total={feedback.good + feedback.neutral + feedback.bad}
       />
 
-      {totalFeedback > 0 ? (
-        <Feedback data={feedback} total={totalFeedback} />
+      {feedback.good + feedback.neutral + feedback.bad > 0 ? (
+        <Feedback
+          data={feedback}
+          total={feedback.good + feedback.neutral + feedback.bad}
+        />
       ) : (
         <Notification />
       )}
